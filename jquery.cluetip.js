@@ -829,7 +829,8 @@
           dsStyle = '1px 1px ' + dropShadowSteps + 'px rgba(0,0,0,0.5)';
         }
         var dsOffsets = dropShadowSteps === 0 ? '0 0 ' : '1px 1px ';
-        $cluetip.css($.support.boxShadow, dsStyle);
+
+        $cluetip.css('box-shadow', dsStyle);
         return false;
       }
       var oldDropShadow = $cluetip.find('.cluetip-drop-shadow');

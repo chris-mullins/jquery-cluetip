@@ -824,13 +824,13 @@
       var dsStyle = '',
           dropShadowSteps = (options.dropShadow && options.dropShadowSteps) ? +options.dropShadowSteps : 0;
 
-      if ($.support.boxShadow) {
+      if ($.support['cluetipBoxShadow']) {
         if ( dropShadowSteps ) {
           dsStyle = '1px 1px ' + dropShadowSteps + 'px rgba(0,0,0,0.5)';
         }
         var dsOffsets = dropShadowSteps === 0 ? '0 0 ' : '1px 1px ';
-
-        $cluetip.css('box-shadow', dsStyle);
+        $cluetip.css($.support.cluetipBoxShadow, dsStyle);
+        
         return false;
       }
       var oldDropShadow = $cluetip.find('.cluetip-drop-shadow');
@@ -868,16 +868,17 @@
         prefixes = ['moz', 'Moz', 'webkit', 'o'];
 
     for (var i=0, sl = styleProps.length; i < sl; i++) {
-      var prop = styleProps[i],
-          uProp = prop.charAt(0).toUpperCase() + prop.slice(1);
+         var prop = styleProps[i],
+             supportPropName = 'cluetipBoxShadow', 
+             uProp = prop.charAt(0).toUpperCase() + prop.slice(1);
 
       if ( typeof divStyle[ prop ] !== 'undefined' ) {
-        $.support[ prop ] = prop;
+          $.support[supportPropName] = prop;
       } else {
         for (var j=0, pl = prefixes.length; j < pl; j++) {
 
           if (typeof divStyle[ prefixes[j] + uProp ] !== 'undefined') {
-            $.support[ prop ] = prefixes[j] + uProp;
+              $.support[supportPropName] = prefixes[j] + uProp;
             break;
           }
         }
